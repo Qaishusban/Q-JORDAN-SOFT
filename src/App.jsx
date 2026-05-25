@@ -111,8 +111,8 @@ export default function App() {
       navQuote: "Request Quote",
       navAdmin: "Admin",
       badge: "Modern Software Solutions",
-      heroTitle: "We build premium systems that make clients say",
-      heroWow: "“Wow… this is professional”",
+      heroTitle: "",
+      heroWow: "",
       heroText:
         "A premium website to showcase Q JORDAN SOFT services, applications, systems, and quote requests with Supabase integration.",
       quoteBtn: "Request Quote",
@@ -212,8 +212,8 @@ export default function App() {
       navQuote: "طلب عرض سعر",
       navAdmin: "الأدمن",
       badge: "حلول برمجية عصرية",
-      heroTitle: "نبني أنظمة فخمة تجعل العميل يقول",
-      heroWow: "“واو… هذا احترافي”",
+      heroTitle: "",
+      heroWow: "",
       heroText:
         "موقع فخم لعرض خدمات Q JORDAN SOFT، التطبيقات، الأنظمة، وطلب عروض الأسعار مع ربط Supabase.",
       quoteBtn: "اطلب عرض سعر",
