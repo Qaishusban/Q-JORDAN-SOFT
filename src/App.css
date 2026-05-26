@@ -2577,11 +2577,7 @@ body,
   overflow: visible !important;
 }
 
-.mainNav {
-  overflow-x: visible !important;
-  flex-wrap: wrap !important;
-  justify-content: flex-end !important;
-}
+
 
 .mainNav button {
   font-size: 14px !important;
