@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import {
   Code2,
+  Briefcase,
+  BarChart3,
+  Boxes,
   Crown,
   Database,
   Download,
   Edit3,
+  ImagePlus,
+  Images,
+  Moon,
+  Sun,
+  FileText,
   Gem,
   Globe2,
+  Home,
+  Info,
   Languages,
   Layers3,
   LayoutDashboard,
@@ -15,6 +25,12 @@ import {
   MonitorSmartphone,
   Phone,
   PlusCircle,
+  Rocket,
+  Send,
+  ServerCog,
+  Smartphone,
+  Users,
+  Shield,
   ShieldCheck,
   Sparkles,
   Trash2,
@@ -35,6 +51,17 @@ export default function App() {
   const [dbServices, setDbServices] = useState([]);
   const [dbPackages, setDbPackages] = useState([]);
   const [footer, setFooter] = useState(null);
+  const [theme, setTheme] = useState(() => localStorage.getItem("qjs_theme") || "light");
+  const [screenshots, setScreenshots] = useState([]);
+  const [screenshotForm, setScreenshotForm] = useState({
+    project_id: "",
+    title_en: "",
+    title_ar: "",
+    description_en: "",
+    description_ar: "",
+    sort_order: 0,
+    image: null,
+  });
 
   const [selectedProject, setSelectedProject] = useState(null);
   const [openAdminForm, setOpenAdminForm] = useState("");
@@ -110,18 +137,26 @@ export default function App() {
       navHome: "Home",
       navQuote: "Request Quote",
       navAdmin: "Admin",
+      navServices: "Services",
+      navPortfolio: "Portfolio",
+      navAbout: "About",
+      navContact: "Contact",
       badge: "Modern Software Solutions",
-      heroTitle: "",
-      heroWow: "",
+      heroTitle: "Premium Software Solutions",
+      heroWow: "Built for Real Business Growth",
       heroText:
-        "A premium website to showcase Q JORDAN SOFT services, applications, systems, and quote requests with Supabase integration.",
+        "Welcome to Q Jordan Soft. We design and build modern websites, mobile apps, dashboards, and complete business systems that are elegant, reliable, and ready to scale.",
       quoteBtn: "Request Quote",
-      adminBtn: "Preview Admin",
+      adminBtn: "Admin Dashboard",
       command: "Business Command Center",
       quoteRequests: "Quote Requests",
+      totalQuoteRequests: "Total quote requests",
       projects: "Projects",
+      activeProjects: "Active projects",
       clients: "Clients",
-      servicesTitle: "Our Services",
+      registeredClients: "Registered clients",
+      servicesTitle: "What We Can Do For You",
+      servicesKicker: "OUR SERVICES",
       portfolioBadge: "Our Work",
       portfolioTitle: "Applications & Systems Showcase",
       portfolioText: "Examples of systems and applications presented professionally.",
@@ -205,24 +240,47 @@ export default function App() {
       footerAddressEn: "Address - English",
       footerAddressAr: "Address - Arabic",
       rights: "© 2026 Q JORDAN SOFT — All Rights Reserved",
+      darkMode: "Dark Mode",
+      lightMode: "Light Mode",
+      addScreenshots: "Project Screenshots",
+      screenshotsTitle: "Project Screenshots",
+      screenshotsText: "A visual tour that explains the main screens and features inside the system.",
+      noScreenshots: "No screenshots added yet.",
+      selectProject: "Select Project",
+      screenshotTitleEn: "Screenshot Title - English",
+      screenshotTitleAr: "Screenshot Title - Arabic",
+      screenshotDescriptionEn: "Screenshot Description - English",
+      screenshotDescriptionAr: "Screenshot Description - Arabic",
+      screenshotOrder: "Display Order",
+      screenshotImage: "Screenshot Image",
+      uploadScreenshot: "Upload Screenshot",
+      deleteScreenshot: "Delete Screenshot",
     },
     ar: {
       studio: "استوديو برمجي احترافي",
       navHome: "الرئيسية",
       navQuote: "طلب عرض سعر",
       navAdmin: "الأدمن",
+      navServices: "الخدمات",
+      navPortfolio: "الأعمال",
+      navAbout: "من نحن",
+      navContact: "تواصل معنا",
       badge: "حلول برمجية عصرية",
-      heroTitle: "",
-      heroWow: "",
+      heroTitle: "حلول برمجية احترافية",
+      heroWow: "مصممة لنمو أعمالك بثقة",
       heroText:
-        "موقع فخم لعرض خدمات Q JORDAN SOFT، التطبيقات، الأنظمة، وطلب عروض الأسعار مع ربط Supabase.",
+        "مرحبًا بك في Q Jordan Soft. نصمّم ونطوّر مواقع إلكترونية، تطبيقات موبايل، لوحات تحكم، وأنظمة أعمال متكاملة بشكل أنيق وموثوق وقابل للتوسع.",
       quoteBtn: "اطلب عرض سعر",
-      adminBtn: "معاينة الأدمن",
+      adminBtn: "لوحة الأدمن",
       command: "مركز إدارة الأعمال",
       quoteRequests: "طلبات عروض الأسعار",
+      totalQuoteRequests: "إجمالي طلبات العروض",
       projects: "المشاريع",
+      activeProjects: "مشاريع فعالة",
       clients: "العملاء",
-      servicesTitle: "خدماتنا",
+      registeredClients: "عملاء مسجلين",
+      servicesTitle: "ماذا يمكننا أن نقدم لك",
+      servicesKicker: "خدماتنا",
       portfolioBadge: "أعمالنا",
       portfolioTitle: "عرض التطبيقات والأنظمة",
       portfolioText: "نماذج من الأنظمة والتطبيقات التي يمكن عرضها للعملاء بشكل احترافي.",
@@ -305,6 +363,21 @@ export default function App() {
       footerAddressEn: "العنوان بالإنجليزي",
       footerAddressAr: "العنوان بالعربي",
       rights: "© 2026 Q JORDAN SOFT — جميع الحقوق محفوظة",
+      darkMode: "الوضع الداكن",
+      lightMode: "الوضع الفاتح",
+      addScreenshots: "صور شرح المشروع",
+      screenshotsTitle: "صور وشاشات المشروع",
+      screenshotsText: "جولة مرئية توضّح أهم الشاشات والمميزات داخل النظام.",
+      noScreenshots: "لا توجد صور مضافة حتى الآن.",
+      selectProject: "اختر المشروع",
+      screenshotTitleEn: "عنوان الصورة بالإنجليزي",
+      screenshotTitleAr: "عنوان الصورة بالعربي",
+      screenshotDescriptionEn: "وصف الصورة بالإنجليزي",
+      screenshotDescriptionAr: "وصف الصورة بالعربي",
+      screenshotOrder: "ترتيب العرض",
+      screenshotImage: "صورة الشاشة",
+      uploadScreenshot: "رفع الصورة",
+      deleteScreenshot: "حذف الصورة",
     },
   };
 
@@ -382,6 +455,27 @@ export default function App() {
       });
     }
   };
+
+  const fetchScreenshots = async (projectId) => {
+    if (!projectId) {
+      setScreenshots([]);
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("project_screenshots")
+      .select("*")
+      .eq("project_id", projectId)
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true });
+
+    if (!error) setScreenshots(data || []);
+  };
+
+
+  useEffect(() => {
+    localStorage.setItem("qjs_theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     fetchProjects();
@@ -486,6 +580,81 @@ export default function App() {
     const { data } = supabase.storage.from("projects-1").getPublicUrl(fileName);
     return data.publicUrl;
   };
+
+  const uploadScreenshotImage = async () => {
+    if (!screenshotForm.image) return "";
+    const fileExt = screenshotForm.image.name.split(".").pop();
+    const fileName = `${screenshotForm.project_id}/${Date.now()}-${Math.random()
+      .toString(36)
+      .slice(2)}.${fileExt}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("project-screenshots")
+      .upload(fileName, screenshotForm.image);
+
+    if (uploadError) throw uploadError;
+
+    const { data } = supabase.storage.from("project-screenshots").getPublicUrl(fileName);
+    return data.publicUrl;
+  };
+
+  const saveScreenshot = async (e) => {
+    e.preventDefault();
+
+    if (!screenshotForm.project_id || !screenshotForm.image) {
+      alert(isAr ? "يرجى اختيار المشروع والصورة" : "Please select a project and an image");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const imageUrl = await uploadScreenshotImage();
+
+      const payload = {
+        project_id: screenshotForm.project_id,
+        image_url: imageUrl,
+        title_en: screenshotForm.title_en,
+        title_ar: screenshotForm.title_ar,
+        description_en: screenshotForm.description_en,
+        description_ar: screenshotForm.description_ar,
+        sort_order: Number(screenshotForm.sort_order || 0),
+      };
+
+      const { error } = await supabase.from("project_screenshots").insert([payload]);
+      if (error) throw error;
+
+      setScreenshotForm({
+        project_id: screenshotForm.project_id,
+        title_en: "",
+        title_ar: "",
+        description_en: "",
+        description_ar: "",
+        sort_order: 0,
+        image: null,
+      });
+
+      fetchScreenshots(screenshotForm.project_id);
+      alert(isAr ? "تم رفع صورة الشرح بنجاح" : "Screenshot uploaded successfully");
+    } catch (err) {
+      alert(isAr ? `حدث خطأ: ${err.message}` : `Error: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteScreenshot = async (id, projectId) => {
+    if (!confirm(isAr ? "هل تريد حذف هذه الصورة؟" : "Delete this screenshot?")) return;
+
+    const { error } = await supabase.from("project_screenshots").delete().eq("id", id);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    fetchScreenshots(projectId);
+  };
+
 
   const saveProject = async (e) => {
     e.preventDefault();
@@ -783,12 +952,48 @@ export default function App() {
     </button>
   );
 
+  const scrollToSection = (sectionId) => {
+    setPage("home");
+    setTimeout(() => {
+      document.getElementById(sectionId)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 80);
+  };
+
+  const navButton = (key, label, Icon) => (
+    <button
+      className={page === key ? "activeNav" : ""}
+      onClick={() => setPage(key)}
+    >
+      <Icon size={17} />
+      {label}
+    </button>
+  );
+
+  const navScrollButton = (sectionId, label, Icon) => (
+    <button onClick={() => scrollToSection(sectionId)}>
+      <Icon size={17} />
+      {label}
+    </button>
+  );
+
+  const openProjectModal = (project) => {
+    setSelectedProject(project);
+    if (project?.id) {
+      fetchScreenshots(project.id);
+    } else {
+      setScreenshots([]);
+    }
+  };
+
   return (
-    <div className={`site ${isAr ? "rtl" : "ltr"}`} dir={isAr ? "rtl" : "ltr"}>
-      <header className="navbar">
+    <div className={`site ${isAr ? "rtl" : "ltr"} theme-${theme}`} dir={isAr ? "rtl" : "ltr"}>
+      <header className="navbar premiumNavbar">
         <div className="brand" onClick={() => setPage("home")}>
-          <div className="logo">
-            <Crown size={24} />
+          <div className="logo logoImageBox">
+            <img src="/logo.png" alt="Q Jordan Soft Logo" />
           </div>
           <div>
             <h2>Q JORDAN SOFT</h2>
@@ -796,13 +1001,27 @@ export default function App() {
           </div>
         </div>
 
-        <nav>
-          <button onClick={() => setPage("home")}>{content.navHome}</button>
-          <button onClick={() => setPage("quote")}>{content.navQuote}</button>
-          <button onClick={() => setPage("admin")}>{content.navAdmin}</button>
+        <nav className="mainNav">
+          {navButton("home", content.navHome, Home)}
+          {navButton("quote", content.navQuote, FileText)}
+          {navScrollButton("services", content.navServices, Boxes)}
+          {navScrollButton("portfolio", content.navPortfolio, Briefcase)}
+          {navScrollButton("about", content.navAbout, Info)}
+          {navScrollButton("contact", content.navContact, Phone)}
+          {navButton("admin", content.navAdmin, Shield)}
+
           <button className="langBtn" onClick={() => setLang(isAr ? "en" : "ar")}>
             <Languages size={16} />
             {isAr ? "English" : "العربية"}
+          </button>
+
+          <button
+            className="themeBtn"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            title={theme === "dark" ? content.lightMode : content.darkMode}
+          >
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            {theme === "dark" ? content.lightMode : content.darkMode}
           </button>
         </nav>
       </header>
@@ -829,25 +1048,55 @@ export default function App() {
               </div>
             </div>
 
-            <div className="heroCard">
-              <h3>{content.command}</h3>
-              <div className="statLine">
-                <span>{content.quoteRequests}</span>
+            <div className="heroCard commandCard">
+              <div className="commandTitle">
+                <BarChart3 size={35} />
+                <div>
+                  <h3>{content.command}</h3>
+                  <p>{isAr ? "نظرة مباشرة على الأداء" : "Real-time Overview"}</p>
+                </div>
+              </div>
+
+              <div className="statLine orangeStat">
+                <div className="statInfo">
+                  <FileText size={28} />
+                  <div>
+                    <span>{content.quoteRequests}</span>
+                    <small>{content.totalQuoteRequests}</small>
+                  </div>
+                </div>
                 <strong>{quotes.length}</strong>
               </div>
-              <div className="statLine">
-                <span>{content.projects}</span>
+
+              <div className="statLine blueStat">
+                <div className="statInfo">
+                  <Boxes size={28} />
+                  <div>
+                    <span>{content.projects}</span>
+                    <small>{content.activeProjects}</small>
+                  </div>
+                </div>
                 <strong>{displayProjects.length}</strong>
               </div>
-              <div className="statLine">
-                <span>{content.clients}</span>
+
+              <div className="statLine greenStat">
+                <div className="statInfo">
+                  <Users size={28} />
+                  <div>
+                    <span>{content.clients}</span>
+                    <small>{content.registeredClients}</small>
+                  </div>
+                </div>
                 <strong>{quotes.length}</strong>
               </div>
             </div>
           </section>
 
-          <section className="section">
-            <h2>{content.servicesTitle}</h2>
+          <section id="services" className="section servicesSection">
+            <div className="sectionTitle compactTitle">
+              <span>{content.servicesKicker}</span>
+              <h2>{content.servicesTitle}</h2>
+            </div>
             <div className="grid">
               {displayServices.map((item) => {
                 const Icon = item.icon || Code2;
@@ -862,7 +1111,7 @@ export default function App() {
             </div>
           </section>
 
-          <section className="section portfolio">
+          <section id="portfolio" className="section portfolio">
             <div className="sectionTitle">
               <span className="badge">{content.portfolioBadge}</span>
               <h2>{content.portfolioTitle}</h2>
@@ -881,7 +1130,7 @@ export default function App() {
                     </div>
                     <h3>{getText(project, "title")}</h3>
                     <p>{getText(project, "description")}</p>
-                    <button onClick={() => setSelectedProject(project)}>{content.viewProject}</button>
+                    <button onClick={() => openProjectModal(project)}>{content.viewProject}</button>
                   </div>
                 );
               })}
@@ -915,7 +1164,7 @@ export default function App() {
             </section>
           )}
 
-          <section className="whySection">
+          <section id="about" className="whySection">
             <div className="whyHeader">
               <span className="badge">{content.whyBadge}</span>
               <h2>{content.whyTitle}</h2>
@@ -935,7 +1184,7 @@ export default function App() {
             </div>
           </section>
 
-          <footer className="footer">
+          <footer id="contact" className="footer">
             <div>
               <h2>Q JORDAN SOFT</h2>
               <p>{content.studio}</p>
@@ -980,7 +1229,7 @@ export default function App() {
             </select>
             <textarea placeholder={content.idea} rows="5" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
             <button type="submit" disabled={loading}>
-              {loading ? (isAr ? "جاري الإرسال..." : "Sending...") : content.submit}
+              {loading ? (isAr ? "جاري الإرسال..." : "Sending...") : <><Send size={16} /> {content.submit}</>}
             </button>
           </form>
         </section>
@@ -1032,6 +1281,7 @@ export default function App() {
 
               <div className="adminActionsBar">
                 {adminOpenButton("project", content.addProject)}
+                {adminOpenButton("screenshots", content.addScreenshots)}
                 {adminOpenButton("service", content.addService)}
                 {adminOpenButton("package", content.addPackage)}
                 {adminOpenButton("footer", content.editFooter)}
@@ -1057,6 +1307,55 @@ export default function App() {
                     <input type="file" accept="image/*" onChange={(e) => setProjectForm({ ...projectForm, image: e.target.files[0] })} />
                     <button type="submit" disabled={loading}>{loading ? "..." : editingProjectId ? content.update : content.save}</button>
                   </form>
+                </div>
+              )}
+
+              {openAdminForm === "screenshots" && (
+                <div className="addProjectBox screenshotAdminBox">
+                  <h2>{content.addScreenshots}</h2>
+                  <form className="quoteForm" onSubmit={saveScreenshot}>
+                    <select
+                      value={screenshotForm.project_id}
+                      onChange={(e) => {
+                        setScreenshotForm({ ...screenshotForm, project_id: e.target.value });
+                        fetchScreenshots(e.target.value);
+                      }}
+                    >
+                      <option value="">{content.selectProject}</option>
+                      {dbProjects.map((project) => (
+                        <option key={project.id} value={project.id}>
+                          {getText(project, "title")}
+                        </option>
+                      ))}
+                    </select>
+
+                    <input placeholder={content.screenshotTitleEn} value={screenshotForm.title_en} onChange={(e) => setScreenshotForm({ ...screenshotForm, title_en: e.target.value })} />
+                    <input placeholder={content.screenshotTitleAr} value={screenshotForm.title_ar} onChange={(e) => setScreenshotForm({ ...screenshotForm, title_ar: e.target.value })} />
+                    <textarea placeholder={content.screenshotDescriptionEn} rows="3" value={screenshotForm.description_en} onChange={(e) => setScreenshotForm({ ...screenshotForm, description_en: e.target.value })} />
+                    <textarea placeholder={content.screenshotDescriptionAr} rows="3" value={screenshotForm.description_ar} onChange={(e) => setScreenshotForm({ ...screenshotForm, description_ar: e.target.value })} />
+                    <input type="number" placeholder={content.screenshotOrder} value={screenshotForm.sort_order} onChange={(e) => setScreenshotForm({ ...screenshotForm, sort_order: e.target.value })} />
+                    <input type="file" accept="image/*" onChange={(e) => setScreenshotForm({ ...screenshotForm, image: e.target.files[0] })} />
+                    <button type="submit" disabled={loading}>
+                      {loading ? "..." : <><ImagePlus size={16} /> {content.uploadScreenshot}</>}
+                    </button>
+                  </form>
+
+                  {screenshots.length > 0 && (
+                    <div className="adminScreensPreview">
+                      {screenshots.map((shot) => (
+                        <div className="adminScreenItem" key={shot.id}>
+                          <img src={shot.image_url} alt={getText(shot, "title") || "Screenshot"} />
+                          <div>
+                            <h4>{getText(shot, "title") || content.screenshotsTitle}</h4>
+                            <p>{getText(shot, "description")}</p>
+                            <button className="dangerMiniBtn" onClick={() => deleteScreenshot(shot.id, shot.project_id)}>
+                              <Trash2 size={14} /> {content.deleteScreenshot}
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -1119,6 +1418,16 @@ export default function App() {
                       <div className="quoteMessage">{getText(project, "description")}</div>
                       <div className="quoteActions">
                         <button className="secondary smallAction" onClick={() => editProject(project)}><Edit3 size={15} /> {content.edit}</button>
+                        <button
+                          className="secondary smallAction"
+                          onClick={() => {
+                            setOpenAdminForm("screenshots");
+                            setScreenshotForm({ ...screenshotForm, project_id: project.id });
+                            fetchScreenshots(project.id);
+                          }}
+                        >
+                          <Images size={15} /> {content.addScreenshots}
+                        </button>
                         <button className="primary smallAction" onClick={() => deleteRow("projects", project.id, fetchProjects)}><Trash2 size={15} /> {content.delete}</button>
                       </div>
                     </div>
@@ -1231,6 +1540,34 @@ export default function App() {
                 <h3>{content.technologies}</h3>
                 <p>{getText(selectedProject, "technologies") || "React / Supabase / Dashboard / Storage"}</p>
               </div>
+            </div>
+
+            <div className="projectScreenshotsSection">
+              <div className="galleryHeader">
+                <span className="badge"><Images size={16} /> {content.screenshotsTitle}</span>
+                <p>{content.screenshotsText}</p>
+              </div>
+
+              {screenshots.length === 0 ? (
+                <div className="emptyGallery">{content.noScreenshots}</div>
+              ) : (
+                <div className="screenshotsGrid">
+                  {screenshots.map((shot) => (
+                    <div className="screenshotCard" key={shot.id}>
+                      <img src={shot.image_url} alt={getText(shot, "title") || "Project screenshot"} />
+                      <div className="screenshotContent">
+                        <h3>{getText(shot, "title") || content.screenshotsTitle}</h3>
+                        <p>{getText(shot, "description")}</p>
+                        {admin && (
+                          <button className="dangerMiniBtn" onClick={() => deleteScreenshot(shot.id, shot.project_id)}>
+                            <Trash2 size={14} /> {content.deleteScreenshot}
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="modalFeaturesBox">
