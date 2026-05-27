@@ -12,6 +12,8 @@ import {
   Images,
   Moon,
   Sun,
+  Menu,
+  X,
   FileText,
   Gem,
   Globe2,
@@ -52,6 +54,7 @@ export default function App() {
   const [dbPackages, setDbPackages] = useState([]);
   const [footer, setFooter] = useState(null);
   const [theme, setTheme] = useState(() => localStorage.getItem("qjs_theme") || "light");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [screenshots, setScreenshots] = useState([]);
   const [screenshotForm, setScreenshotForm] = useState({
     project_id: "",
@@ -174,8 +177,8 @@ export default function App() {
       whyText:
         "We do not just build a website. We build an experience that impresses clients from the first second.",
       quotePageBadge: "Request Quote",
-      quotePageTitle: "Let clients request a quote without login",
-      quotePageText: "Requests are saved directly inside Supabase.",
+      quotePageTitle: "Submit your project request and let Q JORDAN SOFT craft a complete digital experience that combines modern design, high performance, and scalability to turn your idea into a successful professional project.",
+      quotePageText: "",
       name: "Full Name / Company Name",
       email: "Email",
       phone: "Phone Number",
@@ -297,7 +300,7 @@ export default function App() {
       whyTitle: "لماذا يثق العملاء بأنظمتنا",
       whyText: "نحن لا نبني مجرد موقع، نحن نبني تجربة تخلي العميل ينبهر من أول ثانية.",
       quotePageBadge: "طلب عرض سعر",
-      quotePageTitle: "خلّي العميل يطلب عرض سعر بدون تسجيل دخول",
+      quotePageTitle: "قدّم طلب مشروعك ودع فريق Q JORDAN SOFT يطوّر لك تجربة رقمية متكاملة تجمع بين التصميم العصري، الأداء العالي، وقابلية التوسع، لنساعدك على تحويل فكرتك إلى مشروع ناجح ومميز.",
       quotePageText: "الطلبات تنحفظ مباشرة داخل Supabase.",
       name: "الاسم الكامل / اسم الشركة",
       email: "البريد الإلكتروني",
@@ -952,8 +955,14 @@ export default function App() {
     </button>
   );
 
+  const navigateToPage = (targetPage) => {
+    setPage(targetPage);
+    setMobileMenuOpen(false);
+  };
+
   const scrollToSection = (sectionId) => {
     setPage("home");
+    setMobileMenuOpen(false);
     setTimeout(() => {
       document.getElementById(sectionId)?.scrollIntoView({
         behavior: "smooth",
@@ -965,7 +974,7 @@ export default function App() {
   const navButton = (key, label, Icon) => (
     <button
       className={page === key ? "activeNav" : ""}
-      onClick={() => setPage(key)}
+      onClick={() => navigateToPage(key)}
     >
       <Icon size={17} />
       {label}
@@ -991,7 +1000,7 @@ export default function App() {
   return (
     <div className={`site ${isAr ? "rtl" : "ltr"} theme-${theme}`} dir={isAr ? "rtl" : "ltr"}>
       <header className="navbar premiumNavbar">
-        <div className="brand" onClick={() => setPage("home")}>
+        <div className="brand" onClick={() => navigateToPage("home")}>
           <div className="logo logoImageBox">
             <img src="/logo.png" alt="Q Jordan Soft Logo" />
           </div>
@@ -1001,7 +1010,17 @@ export default function App() {
           </div>
         </div>
 
-        <nav className="mainNav">
+        <button
+          className="mobileMenuBtn"
+          type="button"
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        <nav className={`mainNav ${mobileMenuOpen ? "mobileOpen" : ""}`}>
           {navButton("home", content.navHome, Home)}
           {navButton("quote", content.navQuote, FileText)}
           {navScrollButton("services", content.navServices, Boxes)}
@@ -1010,14 +1029,14 @@ export default function App() {
           {navScrollButton("contact", content.navContact, Phone)}
           {navButton("admin", content.navAdmin, Shield)}
 
-          <button className="langBtn" onClick={() => setLang(isAr ? "en" : "ar")}>
+          <button className="langBtn" onClick={() => { setLang(isAr ? "en" : "ar"); setMobileMenuOpen(false); }}>
             <Languages size={16} />
             {isAr ? "English" : "العربية"}
           </button>
 
           <button
             className="themeBtn"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => { setTheme(theme === "dark" ? "light" : "dark"); setMobileMenuOpen(false); }}
             title={theme === "dark" ? content.lightMode : content.darkMode}
           >
             {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
@@ -1039,10 +1058,10 @@ export default function App() {
               </h1>
               <p>{content.heroText}</p>
               <div className="actions">
-                <button className="primary" onClick={() => setPage("quote")}>
+                <button className="primary" onClick={() => navigateToPage("quote")}>
                   {content.quoteBtn}
                 </button>
-                <button className="secondary" onClick={() => setPage("admin")}>
+                <button className="secondary" onClick={() => navigateToPage("admin")}>
                   {content.adminBtn}
                 </button>
               </div>
@@ -1157,7 +1176,7 @@ export default function App() {
                         <li key={index}>✓ {feature}</li>
                       ))}
                     </ul>
-                    <button onClick={() => setPage("quote")}>{content.quoteBtn}</button>
+                    <button onClick={() => navigateToPage("quote")}>{content.quoteBtn}</button>
                   </div>
                 ))}
               </div>
@@ -1587,7 +1606,7 @@ export default function App() {
                   <Download size={16} /> {content.downloadApp}
                 </a>
               )}
-              <button className="primary" onClick={() => setPage("quote")}>{content.contactUs}</button>
+              <button className="primary" onClick={() => navigateToPage("quote")}>{content.contactUs}</button>
               <button className="secondary" onClick={() => setSelectedProject(null)}>{content.close}</button>
             </div>
           </div>
