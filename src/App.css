@@ -2376,34 +2376,37 @@ body {
   }
 }
 
-
 /* =========================================================
-   FINAL FIX — Premium Fixed Header WITHOUT Horizontal Scrollbar
+   Q JORDAN SOFT — CLEAN FINAL FIX
+   Fixed Header + Mobile Dropdown + No Horizontal Scroll
    Keep this block at the very END of App.css
-   ========================================================= */
+========================================================= */
 
 html,
 body,
 #root {
+  width: 100%;
   min-height: 100%;
+  margin: 0;
+  padding: 0;
   overflow-x: hidden !important;
 }
 
 body {
-  width: 100%;
+  background: #fff8ef;
 }
 
 .site {
   width: 100% !important;
   max-width: 100vw !important;
+  min-height: 100vh !important;
   overflow-x: hidden !important;
   overflow-y: visible !important;
-  padding-top: 112px !important;
+  padding-top: 92px !important;
 }
 
-/* Fixed header: always visible while scrolling */
-.premiumNavbar,
-.navbar.premiumNavbar {
+.navbar.premiumNavbar,
+.premiumNavbar {
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
@@ -2412,466 +2415,24 @@ body {
 
   width: 100% !important;
   max-width: 100vw !important;
-  min-height: 112px !important;
+  height: 92px !important;
+  min-height: 92px !important;
+
   margin: 0 !important;
-  padding: 14px 5.5% !important;
+  padding: 0 5.5% !important;
 
   display: flex !important;
+  flex-direction: row !important;
   align-items: center !important;
   justify-content: space-between !important;
   gap: 18px !important;
 
   overflow: visible !important;
+  box-sizing: border-box !important;
 
   background:
-    radial-gradient(circle at 12% 0%, rgba(249, 115, 22, 0.16), transparent 28%),
-    linear-gradient(180deg, rgba(7, 17, 32, 0.97), rgba(15, 23, 42, 0.95)) !important;
-
-  backdrop-filter: blur(26px) !important;
-  -webkit-backdrop-filter: blur(26px) !important;
-
-  border: 0 !important;
-  border-bottom: 1px solid rgba(249, 115, 22, 0.34) !important;
-
-  box-shadow:
-    0 22px 70px rgba(2, 6, 23, 0.34),
-    inset 0 -1px 0 rgba(251, 191, 36, 0.12) !important;
-}
-
-.premiumNavbar::after,
-.navbar.premiumNavbar::after {
-  content: "" !important;
-  position: absolute !important;
-  left: 4% !important;
-  right: 4% !important;
-  bottom: -1px !important;
-  height: 1px !important;
-  background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.8), transparent) !important;
-  pointer-events: none !important;
-}
-
-/* Brand compact */
-.premiumNavbar .brand,
-.navbar.premiumNavbar .brand {
-  display: flex !important;
-  align-items: center !important;
-  gap: 14px !important;
-  color: white !important;
-  min-width: 250px !important;
-  flex: 0 0 auto !important;
-}
-
-.logoImageBox,
-.premiumNavbar .logoImageBox,
-.navbar.premiumNavbar .logoImageBox {
-  width: 68px !important;
-  height: 68px !important;
-  border-radius: 20px !important;
-  flex: 0 0 auto !important;
-}
-
-.premiumNavbar .brand h2,
-.navbar.premiumNavbar .brand h2,
-.brand h2 {
-  color: white !important;
-  font-size: 24px !important;
-  line-height: 1.05 !important;
-  margin: 0 !important;
-  white-space: nowrap !important;
-}
-
-.premiumNavbar .brand p,
-.navbar.premiumNavbar .brand p,
-.brand p {
-  color: #fbbf24 !important;
-  font-size: 13px !important;
-  margin-top: 5px !important;
-  white-space: nowrap !important;
-}
-
-/* Navigation: wrap normally, never horizontal scrollbar */
-.mainNav,
-nav.mainNav {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-  max-width: 100% !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-end !important;
-  gap: 7px !important;
-  flex-wrap: wrap !important;
-
-  overflow-x: visible !important;
-  overflow-y: visible !important;
-  scrollbar-width: none !important;
-  padding: 0 !important;
-}
-
-.mainNav::-webkit-scrollbar,
-nav.mainNav::-webkit-scrollbar {
-  display: none !important;
-}
-
-.mainNav button,
-nav.mainNav button {
-  flex: 0 0 auto !important;
-  white-space: nowrap !important;
-
-  min-height: 42px !important;
-  padding: 10px 11px !important;
-  border-radius: 15px !important;
-
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 7px !important;
-
-  color: rgba(255, 255, 255, 0.88) !important;
-  background: transparent !important;
-  border: 1px solid transparent !important;
-
-  font-size: 13px !important;
-  line-height: 1 !important;
-  font-weight: 950 !important;
-}
-
-.mainNav button svg,
-nav.mainNav button svg {
-  width: 15px !important;
-  height: 15px !important;
-  flex: 0 0 auto !important;
-}
-
-.mainNav button:hover,
-nav.mainNav button:hover {
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: white !important;
-  transform: translateY(-1px) !important;
-}
-
-.mainNav .activeNav,
-nav.mainNav .activeNav {
-  background: transparent !important;
-  color: #f97316 !important;
-  box-shadow: none !important;
-}
-
-.mainNav .activeNav svg,
-nav.mainNav .activeNav svg {
-  color: #f97316 !important;
-}
-
-.mainNav .activeNav::after,
-nav.mainNav .activeNav::after {
-  bottom: -9px !important;
-  left: 10px !important;
-  right: 10px !important;
-  height: 2px !important;
-}
-
-.mainNav .langBtn,
-nav.mainNav .langBtn,
-.mainNav .themeBtn,
-nav.mainNav .themeBtn {
-  margin-inline-start: 6px !important;
-  padding-inline: 13px !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: white !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-}
-
-.mainNav .langBtn:hover,
-nav.mainNav .langBtn:hover,
-.mainNav .themeBtn:hover,
-nav.mainNav .themeBtn:hover {
-  background: rgba(249, 115, 22, 0.2) !important;
-  color: white !important;
-}
-
-/* Offset anchor scrolling so sections do not hide behind fixed header */
-#services,
-#portfolio,
-#about,
-#contact {
-  scroll-margin-top: 130px !important;
-}
-
-/* Modal should stay above fixed header */
-.projectModalOverlay {
-  z-index: 1000000 !important;
-}
-
-/* Medium screens: make header two clean lines, no scrollbar */
-@media (max-width: 1350px) {
-  .site {
-    padding-top: 160px !important;
-  }
-
-  .premiumNavbar,
-  .navbar.premiumNavbar {
-    min-height: 160px !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    justify-content: center !important;
-    padding: 12px 4% !important;
-    gap: 12px !important;
-  }
-
-  .premiumNavbar .brand,
-  .navbar.premiumNavbar .brand {
-    width: 100% !important;
-    min-width: 0 !important;
-    justify-content: center !important;
-  }
-
-  .mainNav,
-  nav.mainNav {
-    width: 100% !important;
-    justify-content: center !important;
-    gap: 7px !important;
-  }
-
-  .mainNav button,
-  nav.mainNav button {
-    padding: 10px 12px !important;
-    font-size: 13px !important;
-  }
-
-  #services,
-  #portfolio,
-  #about,
-  #contact {
-    scroll-margin-top: 178px !important;
-  }
-}
-
-/* Tablet / phone */
-@media (max-width: 760px) {
-  .site {
-    padding-top: 176px !important;
-  }
-
-  .premiumNavbar,
-  .navbar.premiumNavbar {
-    min-height: 176px !important;
-    padding: 10px 4% !important;
-    gap: 10px !important;
-  }
-
-  .premiumNavbar .brand,
-  .navbar.premiumNavbar .brand {
-    justify-content: flex-start !important;
-  }
-
-  .logoImageBox,
-  .premiumNavbar .logoImageBox,
-  .navbar.premiumNavbar .logoImageBox {
-    width: 52px !important;
-    height: 52px !important;
-    border-radius: 16px !important;
-  }
-
-  .premiumNavbar .brand h2,
-  .navbar.premiumNavbar .brand h2,
-  .brand h2 {
-    font-size: 18px !important;
-  }
-
-  .premiumNavbar .brand p,
-  .navbar.premiumNavbar .brand p,
-  .brand p {
-    font-size: 11px !important;
-  }
-
-  .mainNav,
-  nav.mainNav {
-    justify-content: flex-start !important;
-    gap: 6px !important;
-  }
-
-  .mainNav button,
-  nav.mainNav button {
-    min-height: 36px !important;
-    padding: 8px 9px !important;
-    font-size: 11px !important;
-    border-radius: 12px !important;
-  }
-
-  .mainNav button svg,
-  nav.mainNav button svg {
-    width: 13px !important;
-    height: 13px !important;
-  }
-
-  .mainNav .activeNav::after,
-  nav.mainNav .activeNav::after {
-    bottom: -5px !important;
-  }
-
-  #services,
-  #portfolio,
-  #about,
-  #contact {
-    scroll-margin-top: 190px !important;
-  }
-}
-
-/* Very small phones */
-@media (max-width: 420px) {
-  .site {
-    padding-top: 188px !important;
-  }
-
-  .premiumNavbar,
-  .navbar.premiumNavbar {
-    min-height: 188px !important;
-  }
-
-  .mainNav button,
-  nav.mainNav button {
-    font-size: 10px !important;
-    padding: 8px 8px !important;
-  }
-}
-
-/* =========================================================
-   FINAL FIX — Quote Page Professional Text Size
-   Keep this block at the VERY END of App.css
-   ========================================================= */
-
-/* Main quote page heading: normal, readable, professional */
-.formSection h1 {
-  font-size: clamp(24px, 2.4vw, 38px) !important;
-  line-height: 1.22 !important;
-  letter-spacing: -0.6px !important;
-  max-width: 560px !important;
-  font-weight: 950 !important;
-  margin: 18px 0 14px !important;
-}
-
-/* Quote page description / note text */
-.formSection p,
-.formSection .adminText {
-  font-size: 12px !important;
-  line-height: 1.9 !important;
-  max-width: 560px !important;
-  color: #475569 !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.15px !important;
-}
-
-/* General hero paragraph stays elegant */
-.hero p {
-  font-size: 14px !important;
-  line-height: 1.9 !important;
-  max-width: 650px !important;
-  color: #475569 !important;
-  font-weight: 500 !important;
-}
-
-/* Keep home hero title premium but not oversized on smaller screens */
-.hero h1 {
-  font-size: clamp(38px, 4.4vw, 72px) !important;
-  line-height: 1 !important;
-}
-
-/* Quote page layout spacing after fixed header */
-.formSection {
-  align-items: center !important;
-}
-
-/* Dark mode text color */
-.theme-dark .formSection p,
-.theme-dark .formSection .adminText,
-.theme-dark .hero p {
-  color: #cbd5e1 !important;
-}
-
-@media (max-width: 1200px) {
-  .formSection h1 {
-    font-size: clamp(24px, 3.2vw, 34px) !important;
-    max-width: 680px !important;
-  }
-
-  .formSection p,
-  .formSection .adminText {
-    max-width: 680px !important;
-  }
-}
-
-@media (max-width: 760px) {
-  .formSection h1 {
-    font-size: 24px !important;
-    line-height: 1.3 !important;
-    letter-spacing: -0.3px !important;
-  }
-
-  .formSection p,
-  .formSection .adminText {
-    font-size: 11px !important;
-    line-height: 1.8 !important;
-  }
-
-  .hero h1 {
-    font-size: 34px !important;
-  }
-
-  .hero p {
-    font-size: 12px !important;
-  }
-}
-
-@media (max-width: 420px) {
-  .formSection h1 {
-    font-size: 22px !important;
-  }
-}
-
-/* =========================================================
-   Q JORDAN SOFT — FIXED HEADER + PREMIUM MOBILE DROPDOWN
-   ضع هذا البلوك في آخر ملف src/App.css
-   ========================================================= */
-
-html,
-body,
-#root {
-  min-height: 100%;
-  overflow-x: hidden !important;
-}
-
-.site {
-  width: 100% !important;
-  max-width: 100vw !important;
-  overflow-x: hidden !important;
-  padding-top: 96px !important;
-}
-
-/* Fixed premium header */
-.premiumNavbar,
-.navbar.premiumNavbar {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  z-index: 999999 !important;
-
-  width: 100% !important;
-  max-width: 100vw !important;
-  min-height: 96px !important;
-  margin: 0 !important;
-  padding: 12px 5.5% !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 18px !important;
-
-  overflow: visible !important;
-
-  background:
-    radial-gradient(circle at 12% 0%, rgba(249, 115, 22, 0.16), transparent 28%),
-    linear-gradient(180deg, rgba(7, 17, 32, 0.98), rgba(15, 23, 42, 0.96)) !important;
+    radial-gradient(circle at 12% 0%, rgba(249, 115, 22, 0.18), transparent 28%),
+    linear-gradient(180deg, rgba(7, 17, 32, 0.99), rgba(15, 23, 42, 0.97)) !important;
 
   border: 0 !important;
   border-bottom: 1px solid rgba(249, 115, 22, 0.34) !important;
@@ -2884,8 +2445,8 @@ body,
   -webkit-backdrop-filter: blur(26px) !important;
 }
 
-.premiumNavbar::after,
-.navbar.premiumNavbar::after {
+.navbar.premiumNavbar::after,
+.premiumNavbar::after {
   content: "" !important;
   position: absolute !important;
   left: 4% !important;
@@ -2896,11 +2457,11 @@ body,
   pointer-events: none !important;
 }
 
-/* Brand */
-.premiumNavbar .brand,
-.navbar.premiumNavbar .brand {
+.navbar.premiumNavbar .brand,
+.premiumNavbar .brand {
   display: flex !important;
   align-items: center !important;
+  justify-content: flex-start !important;
   gap: 14px !important;
   min-width: 245px !important;
   flex: 0 0 auto !important;
@@ -2908,35 +2469,51 @@ body,
 }
 
 .logoImageBox,
-.premiumNavbar .logoImageBox,
-.navbar.premiumNavbar .logoImageBox {
+.navbar.premiumNavbar .logoImageBox,
+.premiumNavbar .logoImageBox {
   width: 64px !important;
   height: 64px !important;
+  min-width: 64px !important;
+  min-height: 64px !important;
   border-radius: 19px !important;
   flex: 0 0 auto !important;
   overflow: hidden !important;
+  background: #020617 !important;
+  box-shadow:
+    0 16px 42px rgba(0, 0, 0, 0.35),
+    0 0 0 4px rgba(255, 255, 255, 0.04) !important;
 }
 
-.premiumNavbar .brand h2,
+.logoImageBox img,
+.navbar.premiumNavbar .logoImageBox img,
+.premiumNavbar .logoImageBox img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
 .navbar.premiumNavbar .brand h2,
+.premiumNavbar .brand h2,
 .brand h2 {
   color: white !important;
   font-size: 23px !important;
   line-height: 1.05 !important;
   margin: 0 !important;
   white-space: nowrap !important;
+  font-weight: 950 !important;
 }
 
-.premiumNavbar .brand p,
 .navbar.premiumNavbar .brand p,
+.premiumNavbar .brand p,
 .brand p {
   color: #fbbf24 !important;
   font-size: 12px !important;
-  margin-top: 5px !important;
+  margin: 5px 0 0 !important;
   white-space: nowrap !important;
+  font-weight: 900 !important;
 }
 
-/* Desktop nav — no horizontal scrollbar */
 .mainNav,
 nav.mainNav {
   flex: 1 1 auto !important;
@@ -2944,6 +2521,7 @@ nav.mainNav {
   max-width: 100% !important;
 
   display: flex !important;
+  flex-direction: row !important;
   align-items: center !important;
   justify-content: flex-end !important;
   gap: 6px !important;
@@ -2951,6 +2529,7 @@ nav.mainNav {
 
   overflow: visible !important;
   padding: 0 !important;
+  margin: 0 !important;
   scrollbar-width: none !important;
 }
 
@@ -2961,11 +2540,13 @@ nav.mainNav::-webkit-scrollbar {
 
 .mainNav button,
 nav.mainNav button {
+  position: relative !important;
   flex: 0 0 auto !important;
   white-space: nowrap !important;
 
   min-height: 40px !important;
-  padding: 9px 10px !important;
+  height: 40px !important;
+  padding: 0 10px !important;
   border-radius: 14px !important;
 
   display: inline-flex !important;
@@ -2980,6 +2561,7 @@ nav.mainNav button {
   font-size: 12px !important;
   line-height: 1 !important;
   font-weight: 950 !important;
+  box-shadow: none !important;
 }
 
 .mainNav button svg,
@@ -3025,7 +2607,7 @@ nav.mainNav .activeNav::after {
 nav.mainNav .langBtn,
 .mainNav .themeBtn,
 nav.mainNav .themeBtn {
-  margin-inline-start: 5px !important;
+  margin-inline-start: 4px !important;
   padding-inline: 12px !important;
   background: rgba(255, 255, 255, 0.06) !important;
   color: white !important;
@@ -3036,6 +2618,7 @@ nav.mainNav .themeBtn {
   display: none !important;
   width: 46px !important;
   height: 46px !important;
+  min-width: 46px !important;
   border-radius: 15px !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
   background: rgba(255, 255, 255, 0.07) !important;
@@ -3049,7 +2632,6 @@ nav.mainNav .themeBtn {
   background: rgba(249, 115, 22, 0.22) !important;
 }
 
-/* Prevent sections from hiding behind fixed header */
 #services,
 #portfolio,
 #about,
@@ -3057,20 +2639,23 @@ nav.mainNav .themeBtn {
   scroll-margin-top: 120px !important;
 }
 
-/* Medium screens: compact desktop */
-@media (max-width: 1250px) {
-  .premiumNavbar,
-  .navbar.premiumNavbar {
-    padding: 12px 3.5% !important;
+.projectModalOverlay {
+  z-index: 1000000 !important;
+}
+
+@media (max-width: 1280px) {
+  .navbar.premiumNavbar,
+  .premiumNavbar {
+    padding: 0 3.5% !important;
   }
 
-  .premiumNavbar .brand,
-  .navbar.premiumNavbar .brand {
+  .navbar.premiumNavbar .brand,
+  .premiumNavbar .brand {
     min-width: 220px !important;
   }
 
-  .premiumNavbar .brand h2,
   .navbar.premiumNavbar .brand h2,
+  .premiumNavbar .brand h2,
   .brand h2 {
     font-size: 20px !important;
   }
@@ -3078,7 +2663,7 @@ nav.mainNav .themeBtn {
   .mainNav button,
   nav.mainNav button {
     font-size: 11px !important;
-    padding: 8px 8px !important;
+    padding: 0 8px !important;
     gap: 5px !important;
   }
 
@@ -3089,45 +2674,47 @@ nav.mainNav .themeBtn {
   }
 }
 
-/* Mobile: dropdown menu */
 @media (max-width: 900px) {
   .site {
-    padding-top: 86px !important;
+    padding-top: 82px !important;
   }
 
-  .premiumNavbar,
-  .navbar.premiumNavbar {
-    min-height: 86px !important;
-    padding: 10px 16px !important;
+  .navbar.premiumNavbar,
+  .premiumNavbar {
+    height: 82px !important;
+    min-height: 82px !important;
+    padding: 0 16px !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: space-between !important;
     gap: 12px !important;
   }
 
-  .premiumNavbar .brand,
-  .navbar.premiumNavbar .brand {
+  .navbar.premiumNavbar .brand,
+  .premiumNavbar .brand {
     min-width: 0 !important;
     flex: 1 1 auto !important;
     justify-content: flex-start !important;
   }
 
   .logoImageBox,
-  .premiumNavbar .logoImageBox,
-  .navbar.premiumNavbar .logoImageBox {
+  .navbar.premiumNavbar .logoImageBox,
+  .premiumNavbar .logoImageBox {
     width: 52px !important;
     height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
     border-radius: 16px !important;
   }
 
-  .premiumNavbar .brand h2,
   .navbar.premiumNavbar .brand h2,
+  .premiumNavbar .brand h2,
   .brand h2 {
     font-size: 18px !important;
   }
 
-  .premiumNavbar .brand p,
   .navbar.premiumNavbar .brand p,
+  .premiumNavbar .brand p,
   .brand p {
     font-size: 10px !important;
   }
@@ -3155,8 +2742,8 @@ nav.mainNav .themeBtn {
     border-radius: 24px !important;
 
     background:
-      radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 34%),
-      linear-gradient(145deg, rgba(7, 17, 32, 0.98), rgba(15, 23, 42, 0.98)) !important;
+      radial-gradient(circle at top right, rgba(249, 115, 22, 0.18), transparent 34%),
+      linear-gradient(145deg, rgba(7, 17, 32, 0.99), rgba(15, 23, 42, 0.99)) !important;
 
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
     box-shadow:
@@ -3189,6 +2776,7 @@ nav.mainNav .themeBtn {
   .mainNav button,
   nav.mainNav button {
     width: 100% !important;
+    height: auto !important;
     min-height: 46px !important;
     justify-content: flex-start !important;
     padding: 12px 14px !important;
@@ -3237,14 +2825,14 @@ nav.mainNav .themeBtn {
 }
 
 @media (max-width: 420px) {
-  .premiumNavbar .brand h2,
   .navbar.premiumNavbar .brand h2,
+  .premiumNavbar .brand h2,
   .brand h2 {
     font-size: 16px !important;
   }
 
-  .premiumNavbar .brand p,
   .navbar.premiumNavbar .brand p,
+  .premiumNavbar .brand p,
   .brand p {
     font-size: 9px !important;
   }
@@ -3252,5 +2840,70 @@ nav.mainNav .themeBtn {
   .mobileMenuBtn {
     width: 42px !important;
     height: 42px !important;
+    min-width: 42px !important;
+  }
+}
+
+.formSection h1 {
+  font-size: clamp(24px, 2.4vw, 38px) !important;
+  line-height: 1.22 !important;
+  letter-spacing: -0.6px !important;
+  max-width: 560px !important;
+  font-weight: 950 !important;
+  margin: 18px 0 14px !important;
+}
+
+.formSection p,
+.formSection .adminText {
+  font-size: 12px !important;
+  line-height: 1.9 !important;
+  max-width: 560px !important;
+  color: #475569 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.15px !important;
+}
+
+.hero p {
+  font-size: 14px !important;
+  line-height: 1.9 !important;
+  max-width: 650px !important;
+  color: #475569 !important;
+  font-weight: 500 !important;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 4.4vw, 72px) !important;
+  line-height: 1 !important;
+}
+
+.formSection {
+  align-items: center !important;
+}
+
+.theme-dark .formSection p,
+.theme-dark .formSection .adminText,
+.theme-dark .hero p {
+  color: #cbd5e1 !important;
+}
+
+@media (max-width: 760px) {
+  .formSection h1 {
+    font-size: 24px !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.3px !important;
+  }
+
+  .formSection p,
+  .formSection .adminText {
+    font-size: 11px !important;
+    line-height: 1.8 !important;
+  }
+
+  .hero h1 {
+    font-size: 34px !important;
+  }
+
+  .hero p {
+    font-size: 12px !important;
   }
 }
