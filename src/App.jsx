@@ -43,7 +43,14 @@ import { supabase } from "./supabaseClient";
 import "./App.css";
 
 export default function App() {
-  const [page, setPage] = useState("home");
+  const getPageFromPath = () => {
+    const path = window.location.pathname.replace(/\/+$/, "") || "/";
+    if (path === "/privacy-policy") return "privacy";
+    if (path === "/support") return "support";
+    return "home";
+  };
+
+  const [page, setPage] = useState(getPageFromPath);
   const [lang, setLang] = useState("en");
   const [loading, setLoading] = useState(false);
   const [admin, setAdmin] = useState(null);
@@ -258,6 +265,16 @@ export default function App() {
       screenshotImage: "Screenshot Image",
       uploadScreenshot: "Upload Screenshot",
       deleteScreenshot: "Delete Screenshot",
+      privacyPolicy: "Privacy Policy",
+      supportCenter: "Support Center",
+      privacyTitle: "Smart School Bus Live Privacy Policy",
+      privacyUpdated: "Effective date: July 17, 2026",
+      privacyIntro:
+        "Q Jordan Soft respects your privacy. This policy explains how Smart School Bus Live collects, uses, stores, and protects information when schools, parents, drivers, teachers, and administrators use the service.",
+      supportTitle: "Smart School Bus Live Support",
+      supportIntro:
+        "Need help with your account, school connection, notifications, or live bus tracking? Contact Q Jordan Soft and include your school name, user role, and a short description of the issue.",
+      backHome: "Back to Home",
     },
     ar: {
       studio: "استوديو برمجي احترافي",
@@ -381,6 +398,16 @@ export default function App() {
       screenshotImage: "صورة الشاشة",
       uploadScreenshot: "رفع الصورة",
       deleteScreenshot: "حذف الصورة",
+      privacyPolicy: "سياسة الخصوصية",
+      supportCenter: "مركز الدعم",
+      privacyTitle: "سياسة خصوصية Smart School Bus Live",
+      privacyUpdated: "تاريخ السريان: 17 يوليو 2026",
+      privacyIntro:
+        "تحترم Q Jordan Soft خصوصيتك. توضّح هذه السياسة كيفية جمع واستخدام وتخزين وحماية المعلومات عند استخدام المدارس وأولياء الأمور والسائقين والمعلمين والإداريين لخدمة Smart School Bus Live.",
+      supportTitle: "دعم Smart School Bus Live",
+      supportIntro:
+        "هل تحتاج مساعدة في الحساب، ربط المدرسة، الإشعارات، أو التتبع المباشر للحافلة؟ تواصل مع Q Jordan Soft واذكر اسم المدرسة ونوع المستخدم ووصفًا مختصرًا للمشكلة.",
+      backHome: "العودة للرئيسية",
     },
   };
 
@@ -479,6 +506,12 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("qjs_theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    const handlePopState = () => setPage(getPageFromPath());
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   useEffect(() => {
     fetchProjects();
@@ -956,8 +989,20 @@ export default function App() {
   );
 
   const navigateToPage = (targetPage) => {
+    const pathMap = {
+      home: "/",
+      privacy: "/privacy-policy",
+      support: "/support",
+    };
+
+    const nextPath = pathMap[targetPage] || "/";
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({}, "", nextPath);
+    }
+
     setPage(targetPage);
     setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const scrollToSection = (sectionId) => {
@@ -1219,11 +1264,125 @@ export default function App() {
               {footer?.facebook && <a href={footer.facebook} target="_blank" rel="noreferrer">Facebook</a>}
               {footer?.instagram && <a href={footer.instagram} target="_blank" rel="noreferrer">Instagram</a>}
               {footer?.linkedin && <a href={footer.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
+              <button type="button" onClick={() => navigateToPage("privacy")}>{content.privacyPolicy}</button>
+              <button type="button" onClick={() => navigateToPage("support")}>{content.supportCenter}</button>
             </div>
 
             <div className="footerBottom">{content.rights}</div>
           </footer>
         </>
+      )}
+
+      {page === "privacy" && (
+        <main
+          style={{
+            maxWidth: 980,
+            margin: "0 auto",
+            padding: "48px 20px 80px",
+            lineHeight: 1.8,
+          }}
+        >
+          <button className="secondary" type="button" onClick={() => navigateToPage("home")}> 
+            {content.backHome}
+          </button>
+
+          <section
+            style={{
+              marginTop: 24,
+              padding: "32px",
+              borderRadius: 24,
+              background: theme === "dark" ? "rgba(255,255,255,.06)" : "#ffffff",
+              boxShadow: "0 18px 60px rgba(15,23,42,.10)",
+            }}
+          >
+            <span className="badge"><ShieldCheck size={16} /> {content.privacyPolicy}</span>
+            <h1 style={{ marginBottom: 4 }}>{content.privacyTitle}</h1>
+            <p style={{ opacity: 0.72, marginTop: 0 }}>{content.privacyUpdated}</p>
+            <p>{content.privacyIntro}</p>
+
+            <h2>{isAr ? "1. المعلومات التي نجمعها" : "1. Information We Collect"}</h2>
+            <ul>
+              <li>{isAr ? "معلومات الحساب والهوية مثل الاسم، رقم الهاتف، اسم المستخدم، ومعرّف المستخدم." : "Account and identity information such as name, phone number, username, and user ID."}</li>
+              <li>{isAr ? "بيانات المدرسة والطالب وولي الأمر والسائق والمعلم اللازمة لتقديم الخدمة." : "School, student, parent, driver, and teacher information required to provide the service."}</li>
+              <li>{isAr ? "الموقع الجغرافي الدقيق أثناء الرحلات والتتبع المباشر، حسب دور المستخدم وصلاحياته." : "Precise location during trips and live tracking, depending on the user role and permissions."}</li>
+              <li>{isAr ? "الصور التي ترفعها المدرسة أو المستخدمون المصرح لهم، مثل صور الطلاب أو السائقين." : "Photos uploaded by schools or authorized users, such as student or driver photos."}</li>
+              <li>{isAr ? "معلومات الجهاز ومعرّفات الإشعارات اللازمة لإرسال التنبيهات." : "Device information and push-notification identifiers needed to deliver alerts."}</li>
+            </ul>
+
+            <h2>{isAr ? "2. كيفية استخدام المعلومات" : "2. How We Use Information"}</h2>
+            <ul>
+              <li>{isAr ? "تشغيل التتبع المباشر للحافلات وإدارة الرحلات والمسارات." : "Operate live bus tracking and manage trips and routes."}</li>
+              <li>{isAr ? "إرسال إشعارات الرحلات والوصول والحضور والتنبيهات الإدارية." : "Send trip, arrival, attendance, and administrative notifications."}</li>
+              <li>{isAr ? "إدارة الحسابات والصلاحيات وربط المستخدمين بالمدارس والطلاب والحافلات." : "Manage accounts, permissions, and links between users, schools, students, and buses."}</li>
+              <li>{isAr ? "تحسين الأمان والأداء ومعالجة الأعطال وتقديم الدعم الفني." : "Improve security and performance, troubleshoot issues, and provide support."}</li>
+            </ul>
+
+            <h2>{isAr ? "3. مشاركة البيانات" : "3. Data Sharing"}</h2>
+            <p>{isAr
+              ? "لا نبيع بياناتك الشخصية ولا نستخدمها للإعلانات. قد نعالج البيانات من خلال مزودي خدمات تقنيين موثوقين، مثل Supabase وGoogle Maps وFirebase وExpo، فقط لتشغيل وظائف التطبيق."
+              : "We do not sell personal information or use it for advertising. Data may be processed by trusted technical providers such as Supabase, Google Maps, Firebase, and Expo solely to operate the app's features."}</p>
+
+            <h2>{isAr ? "4. الأمان والاحتفاظ بالبيانات" : "4. Security and Data Retention"}</h2>
+            <p>{isAr
+              ? "تُنقل البيانات عبر اتصالات مشفرة باستخدام HTTPS/TLS، ونطبق ضوابط وصول وصلاحيات مناسبة. نحتفظ بالمعلومات للمدة اللازمة لتقديم الخدمة والوفاء بالمتطلبات القانونية والتشغيلية."
+              : "Data is transmitted over encrypted HTTPS/TLS connections, and appropriate access controls and permissions are applied. Information is retained only as long as necessary to provide the service and meet legal or operational requirements."}</p>
+
+            <h2>{isAr ? "5. بيانات الأطفال والطلاب" : "5. Children and Student Data"}</h2>
+            <p>{isAr
+              ? "يُستخدم التطبيق ضمن بيئة مدرسية وتحت إدارة المدرسة. لا ننشئ حسابات للطلاب للاستخدام العام دون تفويض المدرسة أو ولي الأمر، وتُعرض بيانات الطلاب فقط للمستخدمين المصرح لهم."
+              : "The app is used within a school-managed environment. We do not create public student accounts without authorization from the school or parent, and student information is visible only to authorized users."}</p>
+
+            <h2>{isAr ? "6. طلب الوصول أو التصحيح أو الحذف" : "6. Access, Correction, or Deletion Requests"}</h2>
+            <p>{isAr
+              ? "يمكن للمستخدم التواصل مع إدارة المدرسة أو Q Jordan Soft لطلب تصحيح البيانات أو حذفها، مع مراعاة الالتزامات القانونية والتشغيلية للمدرسة."
+              : "Users may contact their school administrator or Q Jordan Soft to request correction or deletion of data, subject to the school's legal and operational obligations."}</p>
+
+            <h2>{isAr ? "7. التواصل معنا" : "7. Contact Us"}</h2>
+            <p>
+              Q Jordan Soft<br />
+              Email: <a href="mailto:q.jordan.soft@gmail.com">q.jordan.soft@gmail.com</a><br />
+              Phone: <a href="tel:+962791171687">+962 79 117 1687</a>
+            </p>
+          </section>
+        </main>
+      )}
+
+      {page === "support" && (
+        <main
+          style={{
+            maxWidth: 900,
+            margin: "0 auto",
+            padding: "48px 20px 80px",
+            lineHeight: 1.8,
+          }}
+        >
+          <button className="secondary" type="button" onClick={() => navigateToPage("home")}> 
+            {content.backHome}
+          </button>
+          <section
+            style={{
+              marginTop: 24,
+              padding: "32px",
+              borderRadius: 24,
+              background: theme === "dark" ? "rgba(255,255,255,.06)" : "#ffffff",
+              boxShadow: "0 18px 60px rgba(15,23,42,.10)",
+            }}
+          >
+            <span className="badge"><MessageSquareQuote size={16} /> {content.supportCenter}</span>
+            <h1>{content.supportTitle}</h1>
+            <p>{content.supportIntro}</p>
+            <h2>{isAr ? "قنوات التواصل" : "Contact Channels"}</h2>
+            <p>Email: <a href="mailto:q.jordan.soft@gmail.com">q.jordan.soft@gmail.com</a></p>
+            <p>Phone / WhatsApp: <a href="tel:+962791171687">+962 79 117 1687</a></p>
+            <h2>{isAr ? "المعلومات المطلوبة عند طلب الدعم" : "Information to Include"}</h2>
+            <ul>
+              <li>{isAr ? "اسم المدرسة" : "School name"}</li>
+              <li>{isAr ? "نوع المستخدم: ولي أمر، سائق، معلم، أو إدارة" : "User role: parent, driver, teacher, or administrator"}</li>
+              <li>{isAr ? "نوع الجهاز وإصدار التطبيق" : "Device type and app version"}</li>
+              <li>{isAr ? "وصف المشكلة وصورة للشاشة إن أمكن" : "Issue description and a screenshot, when possible"}</li>
+            </ul>
+          </section>
+        </main>
       )}
 
       {page === "quote" && (
